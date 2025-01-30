@@ -1,0 +1,109 @@
+/* General Styling */
+body {
+    background: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);
+    color: #00ffcc;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #00ffcc;
+    text-shadow: 0px 0px 15px #00ffcc, 0px 0px 30px #00ff99;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 30px;
+    background: rgba(15, 12, 41, 0.8);
+    border: 1px solid #00ffcc;
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px rgba(0, 255, 204, 0.5), 0px 0px 50px rgba(0, 255, 204, 0.3);
+}
+
+/* Input and Button Styling */
+input, button {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+}
+
+input {
+    background: #121212;
+    color: #00ffcc;
+    border: 1px solid #00ff99;
+    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.5);
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #00ffcc;
+    box-shadow: 0px 0px 15px rgba(0, 255, 204, 0.7);
+}
+
+button {
+    background: linear-gradient(to right, #00ff99, #00ffcc);
+    color: #121212;
+    font-weight: bold;
+    border: 1px solid #00ff99;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background: linear-gradient(to right, #00ffcc, #00ff99);
+    box-shadow: 0px 0px 20px #00ffcc, 0px 0px 40px #00ff99;
+}
+
+/* Result Box Styling */
+.result {
+    background: rgba(15, 12, 41, 0.9);
+    border: 1px solid #00ff99;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 15px rgba(0, 255, 204, 0.5);
+    font-size: 1.1rem;
+}
+
+.result.safe {
+    background: rgba(0, 128, 0, 0.8);
+    border: 1px solid #00ff99;
+    color: #00ff99;
+    box-shadow: 0px 0px 15px rgba(0, 255, 204, 0.7);
+}
+
+.result.warning {
+    background: rgba(128, 0, 0, 0.8);
+    border: 1px solid #ff0033;
+    color: #ff0033;
+    box-shadow: 0px 0px 15px rgba(255, 0, 51, 0.7);
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    color: #00ffcc;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: #00ff99;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #00ffcc;
+    text-shadow: 0px 0px 10px #00ffcc;
+}

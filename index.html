@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Detection Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Phishing Detection Tool</h1>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="url" class="form-label">Enter URL to Check:</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="url" 
+                    name="url" 
+                    placeholder="e.g., example.com or http://example.com" 
+                    required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Check URL</button>
+        </form>
+        {% if result %}
+        <div class="result mt-4 {{ 'warning' if 'Warning' in result else 'safe' }}">
+            {{ result }}
+        </div>
+        {% endif %}
+    </div>
+    <footer>
+        <p>Built by Antony Sabu</p>
+    </footer>
+</body>
+</html>
