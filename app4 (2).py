@@ -118,48 +118,50 @@ def check_virustotal_url(url):
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    result, details = None, []
+
     if request.method == "POST":
-        # Check if system is online
+        # Check internet connectivity
         if not is_online():
-            return render_template(
-                "index2.html",
-                result="❌ System is offline. Please check your internet connection.",
-                details=["The application requires an internet connection for API calls and URL expansion."]
-            )
-            
+            result = "❌ System is offline. Please check your internet connection."
+            details.append("The application requires an internet connection for API calls and URL expansion.")
+            return render_template("index2.html", result=result, details=details)
+
         url = request.form.get("url")
         is_valid, normalized_url, url_exists = is_valid_url(url)
-        details = []
 
         if not is_valid:
             return render_template("index2.html", result="❌ Invalid URL", details=["The URL format is incorrect."])
-
         if not url_exists:
             return render_template("index2.html", result="⚠️ URL Does Not Exist", details=["The entered URL does not seem to exist."])
 
         expanded_url, is_shortened = expand_short_url(normalized_url)
-        msg = "🔍 Shortened URL Expanded: " if is_shortened else ""
+        if is_shortened:
+            details.append(f"🔍 Shortened URL expanded to: {expanded_url}")
 
+        # Run phishing/homograph/pattern checks
         if detect_homograph_attack(expanded_url):
-            details.append("The domain uses unusual characters that may indicate a homograph attack.")
-            return render_template("index2.html", result=f"{msg}⚠️ Possible Homograph Attack Detected: {expanded_url}", details=details)
+            details.append("⚠️ The domain uses unusual characters that may indicate a homograph attack.")
+            return render_template("index2.html", result="⚠️ Possible Homograph Attack Detected", details=details)
 
         if detect_phishing_url(expanded_url):
-            details.append("The URL contains suspicious keywords or patterns (e.g., 'login', 'verify', or repeated dashes).")
-            return render_template("index2.html", result=f"{msg}🚨 Suspicious URL Detected: {expanded_url}", details=details)
+            details.append("🚨 Suspicious patterns detected (e.g., 'login', '@', long numbers, etc).")
+            return render_template("index2.html", result="🚨 Suspicious URL Detected", details=details)
 
-        google_check = check_google_safe_browsing(expanded_url)
-        vt_check = check_virustotal_url(expanded_url)
+        # External checks (Google/VirusTotal)
+        if check_google_safe_browsing(expanded_url):
+            details.append("🚫 Flagged by Google Safe Browsing.")
+        if check_virustotal_url(expanded_url):
+            details.append("🚫 Flagged by VirusTotal.")
 
-        if google_check or vt_check:
-            details.append("This URL was flagged by external services (Google Safe Browsing/VirusTotal).")
-            return render_template("index2.html", result=f"{msg}🚫 Unsafe URL (Verified by Google/VirusTotal): {expanded_url}", details=details)
+        if any("🚫" in msg for msg in details):
+            return render_template("index2.html", result="🚫 Unsafe URL Detected", details=details)
 
-        details.append("No suspicious patterns detected; the URL appears safe based on our checks.")
-        return render_template("index2.html", result=f"{msg}✅ URL appears safe: {expanded_url}", details=details)
+        details.append("✅ No suspicious patterns or external flags found.")
+        result = f"✅ URL appears safe: {expanded_url}"
+        return render_template("index2.html", result=result, details=details)
 
     return render_template("index2.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
-
