@@ -10,8 +10,8 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # Replace with your actual API keys
-GOOGLE_API_KEY = "AIzaSyBEDrEiicsmOYDbq5dIIbPiW6zDoFwRLdo"
-VIRUSTOTAL_API_KEY = "a58264dbf0196f6af709f2517fa1b75abefa589f361a90c09cd02003ab627ad1"
+GOOGLE_API_KEY = 
+VIRUSTOTAL_API_KEY = 
 
 def is_online():
     """Check if the system is connected to the internet by pinging Google."""
