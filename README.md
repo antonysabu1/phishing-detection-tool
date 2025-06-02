@@ -16,11 +16,3 @@ A Flask-based web application to **detect phishing and malicious URLs** using pa
 
 ---
 
-## 🖼️ Interface Preview
-
-> 📸 Add a screenshot of your app running (optional)
-
----
-
-## 🗂️ Project Structure
-
